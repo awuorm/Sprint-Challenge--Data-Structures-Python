@@ -17,15 +17,18 @@ class RingBuffer:
     def get(self):
         # Note:  This is the only [] allowed
         list_buffer_contents = []
+        self.current = self.storage.head.value
+        if self.current is None:
+            return list_buffer_contents
         # TODO: Your code here
-        while len(list_buffer_contents) != self.storage.length:
-            print(self.storage.head.value)
-            self.current = self.storage.head.value
-            list_buffer_contents.append(self.current)
-            self.storage.remove_from_head()
-            self.storage.add_to_tail(self.current)
-        return list_buffer_contents
-
+        else:
+            while len(list_buffer_contents) != self.storage.length:
+                print(self.storage.head.value)
+                self.current = self.storage.head.value
+                list_buffer_contents.append(self.current)
+                self.storage.remove_from_head()
+                self.storage.add_to_tail(self.current)
+            return list_buffer_contents
 
 ring  = RingBuffer(4)
 ring.append("a")
