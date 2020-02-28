@@ -9,32 +9,36 @@ class RingBuffer:
 
     def append(self, item):
         if self.storage.length != self.capacity:
-            self.storage.add_to_head(item)
+            self.storage.add_to_tail(item)
         else:
-            self.storage.remove_from_tail()
-            self.storage.add_to_head(item)
+            self.storage.remove_from_head()
+            self.storage.add_to_tail(item)
 
     def get(self):
         # Note:  This is the only [] allowed
         list_buffer_contents = []
         # TODO: Your code here
         while len(list_buffer_contents) != self.storage.length:
-            self.current = self.storage.tail.value
+            print(self.storage.head.value)
+            self.current = self.storage.head.value
             list_buffer_contents.append(self.current)
-            self.storage.remove_from_tail()
-            self.storage.add_to_head(self.current)
+            self.storage.remove_from_head()
+            self.storage.add_to_tail(self.current)
         return list_buffer_contents
 
-        # if self.current is None:
-        #     return
-        # else:
-        #     while len(list_buffer_contents) != self.storage.length:
-        #             list_buffer_contents.append(self.current)
-        #             self.storage.remove_from_tail()
-        #             self.current = self.storage.head.value
-        #             list_buffer_contents.append(self.current)
-        #             self.storage.remove_from_head()
 
+ring  = RingBuffer(4)
+ring.append("a")
+ring.append("b")
+ring.append("c")
+ring.append("d")
+print(ring.get())
+ring.append("e")
+ring.append("f")
+ring.append("g")
+print(ring.get())
+ring.append("h")
+print(ring.get())
 # ----------------Stretch Goal-------------------
 
 
